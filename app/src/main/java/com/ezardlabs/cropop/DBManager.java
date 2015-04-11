@@ -42,58 +42,43 @@ public class DBManager {
 	}
 
 	public static void addDisease(String phone, String type) {
-		phone = standardisePhoneNumber(phone);
-		Cursor c = db.rawQuery("SELECT id, phone FROM contacts", null);
-		while (c.moveToNext()) {
-			if (standardisePhoneNumber(c.getString(1)).equals(phone)) {
-				ContentValues cv = new ContentValues();
-				cv.put("type", type);
-				cv.put("day", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-				cv.put("month", Calendar.getInstance().get(Calendar.MONTH) + 1);
-				cv.put("year", Calendar.getInstance().get(Calendar.YEAR));
-				cv.put("contact", c.getInt(c.getInt(0)));
-				db.insert("diseases", null, cv);
-				break;
-			}
+		String id;
+		if ((id = getIdFromPhoneNumber(phone)) != null) {
+			ContentValues cv = new ContentValues();
+			cv.put("type", type);
+			cv.put("day", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+			cv.put("month", Calendar.getInstance().get(Calendar.MONTH) + 1);
+			cv.put("year", Calendar.getInstance().get(Calendar.YEAR));
+			cv.put("contact", id);
+			db.insert("diseases", null, cv);
 		}
-		c.close();
 	}
 
 	public static void addIncome(String phone, float amount) {
-		phone = standardisePhoneNumber(phone);
-		Cursor c = db.rawQuery("SELECT id, phone FROM contacts", null);
-		while (c.moveToNext()) {
-			if (standardisePhoneNumber(c.getString(1)).equals(phone)) {
-				ContentValues cv = new ContentValues();
-				cv.put("amount", amount);
-				cv.put("day", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-				cv.put("month", Calendar.getInstance().get(Calendar.MONTH) + 1);
-				cv.put("year", Calendar.getInstance().get(Calendar.YEAR));
-				cv.put("contact", c.getInt(c.getInt(0)));
-				db.insert("incomes", null, cv);
-				break;
-			}
+		String id;
+		if ((id = getIdFromPhoneNumber(phone)) != null) {
+			ContentValues cv = new ContentValues();
+			cv.put("amount", amount);
+			cv.put("day", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+			cv.put("month", Calendar.getInstance().get(Calendar.MONTH) + 1);
+			cv.put("year", Calendar.getInstance().get(Calendar.YEAR));
+			cv.put("contact", id);
+			db.insert("incomes", null, cv);
 		}
-		c.close();
 	}
 
 	public static void addHarvest(String phone, float weight, int type) {
-		phone = standardisePhoneNumber(phone);
-		Cursor c = db.rawQuery("SELECT id, phone FROM contacts", null);
-		while (c.moveToNext()) {
-			if (standardisePhoneNumber(c.getString(1)).equals(phone)) {
-				ContentValues cv = new ContentValues();
-				cv.put("weight", weight);
-				cv.put("type", type);
-				cv.put("day", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-				cv.put("month", Calendar.getInstance().get(Calendar.MONTH) + 1);
-				cv.put("year", Calendar.getInstance().get(Calendar.YEAR));
-				cv.put("contact", c.getInt(c.getInt(0)));
-				db.insert("harvests", null, cv);
-				break;
-			}
+		String id;
+		if ((id = getIdFromPhoneNumber(phone)) != null) {
+			ContentValues cv = new ContentValues();
+			cv.put("weight", weight);
+			cv.put("type", type);
+			cv.put("day", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+			cv.put("month", Calendar.getInstance().get(Calendar.MONTH) + 1);
+			cv.put("year", Calendar.getInstance().get(Calendar.YEAR));
+			cv.put("contact", id);
+			db.insert("harvests", null, cv);
 		}
-		c.close();
 	}
 
 	private static String standardisePhoneNumber(String phone) {
@@ -103,5 +88,16 @@ public class DBManager {
 		} else {
 			return phone.substring(1, phone.length());
 		}
+	}
+
+	private static String getIdFromPhoneNumber(String phone) {
+		Cursor c = db.rawQuery("SELECT id, phone FROM contacts", null);
+		while (c.moveToNext()) {
+			if (standardisePhoneNumber(c.getString(1)).equals(standardisePhoneNumber(phone))) {
+				return c.getString(0);
+			}
+		}
+		c.close();
+		return null;
 	}
 }
