@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.ezardlabs.cropop.DBManager;
 
+import java.lang.Integer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +47,13 @@ public class SmsReceiver extends BroadcastReceiver {
 								DBManager.addHarvest(messages.getOriginatingAddress(), Float.parseFloat(split2[0]) * 1000f, Integer.parseInt(split2[1]));
 							}
 							break outer;
+                        case "PST":
+                            Log.i("", "Pesticide used:" + Float.parseFloat(m.group(i+1)));
+                            String[] split = m.group(i+1).split(" ");
+                            for (String s:split) {
+                                String[] split2 = s.split("P");
+                                DBManager.addPesticide(messages.getOriginatingAddress(), Float.parseFloat(split2[0], Integer.parseInt(split2[1])));
+                            }
 					}
 				}
 				Log.i("", "m.group(" + i + "): " + m.group(i));
