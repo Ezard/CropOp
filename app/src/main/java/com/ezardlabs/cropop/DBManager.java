@@ -12,18 +12,20 @@ public class DBManager {
 
 	static void init(Context ctx) {
 		db = ctx.openOrCreateDatabase("Data", Context.MODE_PRIVATE, null);
-		db.execSQL("CREATE TABLE contacts(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name, phone, location)");
+		db.execSQL("CREATE TABLE IF NOT EXISTS contacts(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name, phone, location, latitude, longitude)");
 	}
 
-	public void addContact(String name, String number, String location) {
+	public static void addContact(String name, String phone, String location, double latitude, double longitude) {
 		ContentValues cv = new ContentValues(3);
 		cv.put("name", name);
-		cv.put("number", number);
+		cv.put("phone", phone);
 		cv.put("location", location);
+		cv.put("latitude", latitude);
+		cv.put("longitude", longitude);
 		db.insert("contacts", null, cv);
 	}
 
-	public Contact[] getContacts() {
+	public static Contact[] getContacts() {
 		Cursor c = db.rawQuery("SELECT * FROM contacts", null);
 		Contact[] contacts = new Contact[c.getCount()];
 		int count = 0;

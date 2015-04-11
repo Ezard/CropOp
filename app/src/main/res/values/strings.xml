@@ -2,4 +2,7 @@
     <string name="app_name">CropOp</string>
     <string name="input_data">Input Data</string>
     <string name="contacts">Contacts</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="location">Location</string>
 </resources>

@@ -3,13 +3,13 @@ package com.ezardlabs.cropop.contacts;
 public class Contact {
 	private int id;
 	private String name;
-	private String number;
+	private String phone;
 	private String location;
 
-	public Contact(int id, String name, String number, String location) {
+	public Contact(int id, String name, String phone, String location) {
 		this.id = id;
 		this.name = name;
-		this.number = number;
+		this.phone = phone;
 		this.location = location;
 	}
 
@@ -25,7 +25,7 @@ public class Contact {
 		return name;
 	}
 
-	public String getNumber() {
-		return number;
+	public String getPhone() {
+		return phone;
 	}
 }
