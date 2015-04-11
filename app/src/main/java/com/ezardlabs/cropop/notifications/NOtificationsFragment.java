@@ -24,6 +24,7 @@ import com.ezardlabs.cropop.contacts.Contact;
 public class NotificationsFragment extends Fragment {
 	RecyclerView list;
 
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
