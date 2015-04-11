@@ -15,7 +15,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".contacts.Contacts"/>
 
         <receiver android:name=".sms.SmsReceiver"
                   android:exported="true">
