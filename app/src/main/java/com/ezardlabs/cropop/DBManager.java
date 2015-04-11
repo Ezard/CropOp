@@ -18,7 +18,9 @@ public class DBManager {
 		db.execSQL("CREATE TABLE IF NOT EXISTS diseases(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type, day, month, year, contact)");
 		db.execSQL("CREATE TABLE IF NOT EXISTS incomes(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, amount, day, month, year, contact)");
 		db.execSQL("CREATE TABLE IF NOT EXISTS harvests(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, weight, type, day, month, year, contact)");
-	}
+        db.execSQL("CREATE TABLE IF NOT EXISTS pesticides(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, quantity, type, day, month, year, contact)");
+
+    }
 
 	public static void addContact(String name, String phone, String location, double latitude, double longitude) {
 		ContentValues cv = new ContentValues(3);
@@ -80,6 +82,20 @@ public class DBManager {
 			db.insert("harvests", null, cv);
 		}
 	}
+
+    public static void addPesticide(String phone, float quantity, int type){
+        String id;
+        if ((id = getIdFromPhoneNumber(phone)) != null) {
+            ContentValues cv = new ContentValues();
+            cv.put("quantity", quantity);
+            cv.put("type", type);
+            cv.put("day", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+            cv.put("month", Calendar.getInstance().get(Calendar.MONTH) + 1);
+            cv.put("year", Calendar.getInstance().get(Calendar.YEAR));
+            cv.put("contact", id);
+            db.insert("pesticides", null, cv);
+        }
+    }
 
 	private static String standardisePhoneNumber(String phone) {
 		phone = phone.replace(" ", "");

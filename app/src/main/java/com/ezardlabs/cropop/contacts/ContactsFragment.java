@@ -17,7 +17,6 @@ import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,18 +32,17 @@ import com.ezardlabs.cropop.DBManager;
 import com.ezardlabs.cropop.R;
 
 public class ContactsFragment extends Fragment {
-	RecyclerView list;
+	private RecyclerView list;
+	private boolean showMapRegionList = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-		Log.i("", "ContactsFragment onCreate");
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Log.i("", "ContactsFragment onCreateView");
 		View v = inflater.inflate(R.layout.list, container, false);
 		list = (RecyclerView) v.findViewById(R.id.list);
 		list.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -54,7 +52,29 @@ public class ContactsFragment extends Fragment {
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		MenuItem temp = menu.add("Add peasant to collection").setIcon(android.R.drawable.ic_menu_add).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+		MenuItem temp;
+		if (showMapRegionList) {
+//			temp = menu.add("Show map region list").setIcon(android.R.drawable.ic_menu_cc).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+//				@Override
+//				public boolean onMenuItemClick(MenuItem item) {
+//					showMapRegionList = true;
+//					getActivity().supportInvalidateOptionsMenu();
+//					return true;
+//				}
+//			});
+//			if (VERSION.SDK_INT >= 11) temp.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		} else {
+			temp = menu.add("Show map region list").setIcon(android.R.drawable.ic_menu_mapmode).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+				@Override
+				public boolean onMenuItemClick(MenuItem item) {
+					showMapRegionList = true;
+					getActivity().supportInvalidateOptionsMenu();
+					return true;
+				}
+			});
+			if (VERSION.SDK_INT >= 11) temp.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
+		temp = menu.add("Add peasant to collection").setIcon(android.R.drawable.ic_menu_add).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				final View view = getActivity().getLayoutInflater().inflate(R.layout.contacts_add, null);
