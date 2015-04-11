@@ -54,15 +54,15 @@ public class ContactsFragment extends Fragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		MenuItem temp;
 		if (showMapRegionList) {
-//			temp = menu.add("Show map region list").setIcon(android.R.drawable.ic_menu_cc).setOnMenuItemClickListener(new OnMenuItemClickListener() {
-//				@Override
-//				public boolean onMenuItemClick(MenuItem item) {
-//					showMapRegionList = true;
-//					getActivity().supportInvalidateOptionsMenu();
-//					return true;
-//				}
-//			});
-//			if (VERSION.SDK_INT >= 11) temp.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+			temp = menu.add("Show map region list").setIcon(R.drawable.ic_menu_allfriends).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+				@Override
+				public boolean onMenuItemClick(MenuItem item) {
+					showMapRegionList = true;
+					getActivity().supportInvalidateOptionsMenu();
+					return true;
+				}
+			});
+			if (VERSION.SDK_INT >= 11) temp.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		} else {
 			temp = menu.add("Show map region list").setIcon(android.R.drawable.ic_menu_mapmode).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 				@Override
