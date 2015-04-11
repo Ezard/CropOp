@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CropOp</string>
+    <string name="input_data">Input Data</string>
 </resources>

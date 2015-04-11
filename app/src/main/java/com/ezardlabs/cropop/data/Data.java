@@ -1,6 +1,6 @@
 package com.ezardlabs.cropop.data;
 
-import android.app.Activity;
+import com.ezardlabs.cropop.Activity;
 
 public class Data extends Activity {
 }
