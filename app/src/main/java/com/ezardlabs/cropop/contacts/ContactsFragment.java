@@ -14,9 +14,12 @@ import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
@@ -25,32 +28,34 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ezardlabs.cropop.Activity;
 import com.ezardlabs.cropop.DBManager;
 import com.ezardlabs.cropop.R;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-
-public class Contacts extends Activity {
-	@InjectView(R.id.list) RecyclerView list;
+public class ContactsFragment extends Fragment {
+	RecyclerView list;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.list);
-		ButterKnife.inject(this);
-		list.setLayoutManager(new LinearLayoutManager(this));
-		list.setAdapter(new ContactAdapter(DBManager.getContacts()));
+		setHasOptionsMenu(true);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.list, container);
+		list = (RecyclerView) v.findViewById(R.id.list);
+		list.setLayoutManager(new LinearLayoutManager(getActivity()));
+		list.setAdapter(new ContactAdapter(DBManager.getContacts()));
+		return v;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		MenuItem temp = menu.add("Add peasant to collection").setIcon(android.R.drawable.ic_menu_add).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
-				final View view = getLayoutInflater().inflate(R.layout.contacts_add, null);
-				new AlertDialog.Builder(Contacts.this).setTitle("Add peasant to collection").setView(view).setPositiveButton("Add", new OnClickListener() {
+				final View view = getActivity().getLayoutInflater().inflate(R.layout.contacts_add, null);
+				new AlertDialog.Builder(getActivity()).setTitle("Add peasant to collection").setView(view).setPositiveButton("Add", new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						new LocationFinder(((EditText) view.findViewById(R.id.name)).getText().toString(), ((EditText) view.findViewById(R.id.number)).getText().toString(),
@@ -61,7 +66,6 @@ public class Contacts extends Activity {
 			}
 		});
 		if (VERSION.SDK_INT >= 11) temp.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		return true;
 	}
 
 	public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
@@ -73,7 +77,7 @@ public class Contacts extends Activity {
 
 		@Override
 		public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-			return new ViewHolder(getLayoutInflater().inflate(android.R.layout.simple_list_item_2, viewGroup, false));
+			return new ViewHolder(getActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_2, viewGroup, false));
 		}
 
 		@Override
@@ -116,10 +120,10 @@ public class Contacts extends Activity {
 			new Handler(Looper.getMainLooper()).post(new Runnable() {
 				@Override
 				public void run() {
-					pd = ProgressDialog.show(Contacts.this, "Calculating location from GPS, please wait...", null, true);
+					pd = ProgressDialog.show(getActivity(), "Calculating location from GPS, please wait...", null, true);
 				}
 			});
-			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 			Criteria criteria = new Criteria();
 			criteria.setAccuracy(Criteria.ACCURACY_FINE);
 			locationManager.requestSingleUpdate(criteria, new LocationListener() {
@@ -132,14 +136,14 @@ public class Contacts extends Activity {
 
 				@Override
 				public void onStatusChanged(String provider, int status, Bundle extras) {
-					switch(status) {
+					switch (status) {
 						case LocationProvider.AVAILABLE:
 							break;
 						case LocationProvider.TEMPORARILY_UNAVAILABLE:
-							Toast.makeText(Contacts.this, "GPS temporarily unavailable", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getActivity(), "GPS temporarily unavailable", Toast.LENGTH_SHORT).show();
 							break;
 						case LocationProvider.OUT_OF_SERVICE:
-							Toast.makeText(Contacts.this, "GPS out of service", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getActivity(), "GPS out of service", Toast.LENGTH_SHORT).show();
 							break;
 					}
 				}
