@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -54,11 +55,12 @@ public class ContactsFragment extends Fragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		MenuItem temp;
 		if (showMapRegionList) {
-			temp = menu.add("Show map region list").setIcon(R.drawable.ic_menu_allfriends).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			temp = menu.add("Show contacts list").setIcon(R.drawable.ic_menu_allfriends).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 				@Override
 				public boolean onMenuItemClick(MenuItem item) {
-					showMapRegionList = true;
+					showMapRegionList = false;
 					getActivity().supportInvalidateOptionsMenu();
+					list.setAdapter(new ContactAdapter(DBManager.getContacts()));
 					return true;
 				}
 			});
@@ -69,6 +71,7 @@ public class ContactsFragment extends Fragment {
 				public boolean onMenuItemClick(MenuItem item) {
 					showMapRegionList = true;
 					getActivity().supportInvalidateOptionsMenu();
+					list.setAdapter(new LocationsAdapter(DBManager.getContactLocations()));
 					return true;
 				}
 			});
@@ -100,7 +103,7 @@ public class ContactsFragment extends Fragment {
 
 		@Override
 		public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-			return new ViewHolder(getActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_2, viewGroup, false));
+			return new ViewHolder(getActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_2, viewGroup, false), contacts[i]);
 		}
 
 		@Override
@@ -118,10 +121,54 @@ public class ContactsFragment extends Fragment {
 			TextView name;
 			TextView location;
 
-			public ViewHolder(View itemView) {
+			public ViewHolder(View itemView, final Contact contact) {
 				super(itemView);
 				name = (TextView) itemView.findViewById(android.R.id.text1);
 				location = (TextView) itemView.findViewById(android.R.id.text2);
+				itemView.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						startActivity(new Intent(getActivity(), ContactDetail.class).putExtra("name", contact.getName()).putExtra("location", contact.getLocation()).putExtra("id", contact.getId()));
+					}
+				});
+			}
+		}
+	}
+
+	public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.ViewHolder> {
+		private String[] locations;
+
+		public LocationsAdapter(String[] locations) {
+			this.locations = locations;
+		}
+
+		@Override
+		public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+			return new ViewHolder(getActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_1, parent, false));
+		}
+
+		@Override
+		public void onBindViewHolder(ViewHolder holder, int position) {
+			holder.title.setText(locations[position]);
+		}
+
+		@Override
+		public int getItemCount() {
+			return locations.length;
+		}
+
+		public class ViewHolder extends RecyclerView.ViewHolder {
+			TextView title;
+
+			public ViewHolder(View itemView) {
+				super(itemView);
+				title = (TextView) itemView.findViewById(android.R.id.text1);
+				itemView.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						list.setAdapter(new ContactAdapter(DBManager.getContacts(title.getText().toString())));
+					}
+				});
 			}
 		}
 	}
