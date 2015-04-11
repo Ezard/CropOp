@@ -49,10 +49,10 @@ public class SmsReceiver extends BroadcastReceiver {
 							break outer;
                         case "PST":
                             Log.i("", "Pesticide used:" + Float.parseFloat(m.group(i+1)));
-                            String[] split = m.group(i+1).split(" ");
-                            for (String s:split) {
-                                String[] split2 = s.split("P");
-                                DBManager.addPesticide(messages.getOriginatingAddress(), Float.parseFloat(split2[0], Integer.parseInt(split2[1])));
+                            String[] split4 = m.group(i+1).split(" ");
+                            for (String s:split4) {
+                                String[] split5 = s.split("P");
+                                DBManager.addPesticide(messages.getOriginatingAddress(), Float.parseFloat(split5[0]), Integer.parseInt(split4[1]));
                             }
 					}
 				}
