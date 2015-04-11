@@ -26,10 +26,6 @@ proguard/
 # Log Files
 *.log
 
-*.gradle
-gradlew
-gradle.properties
 *.iml
 .idea/
 .DS_Store
-gradlew.bat
