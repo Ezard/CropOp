@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/background_pic">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#60000000"
+        android:padding="40dp"
+        android:layout_marginTop="111dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/container">
+
+
+        <EditText
+            android:id="@+id/TFpassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TFusername"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="55dp"
+            android:background="#40000000"
+            android:ems="10"
+            android:hint="Password"/>
+
+        <EditText
+            android:id="@+id/TFusername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TFpassword"
+            android:background="#40000000"
+            android:ems="10"
+            android:hint="Username">
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:background="#40000000"
+            android:text="Log in"
+            android:layout_below="@+id/TFpassword"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+</RelativeLayout>
