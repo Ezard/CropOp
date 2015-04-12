@@ -21,5 +21,4 @@ public class Harvest extends Activity {
         setContentView(R.layout.harvest);
         ButterKnife.inject(this);
     }
-
 }
