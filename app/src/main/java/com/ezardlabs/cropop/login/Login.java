@@ -2,13 +2,10 @@ package com.ezardlabs.cropop.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.ezardlabs.cropop.Activity;
 import com.ezardlabs.cropop.Main;
 import com.ezardlabs.cropop.R;
-import com.ezardlabs.cropop.logs.Logs;
-import com.ezardlabs.cropop.menu.Menu;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -33,7 +30,7 @@ public class Login extends Activity {
 
     @OnClick(R.id.loginButton)
     void loginClick() {
-        startActivity(new Intent(this, Menu.class));
+        startActivity(new Intent(this, Main.class));
     }
 
 }

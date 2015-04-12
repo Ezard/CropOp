@@ -23,7 +23,7 @@ public class Main extends Activity {
 	@InjectView(R.id.listView) ListView drawerListView;
 	private ActionBarDrawerToggle drawerToggle;
 	private int position = 0;
-	private String[] items = {"Contacts", "Notifications", "Settings"};
+	private String[] items = {"Home", "Contacts", "Notifications", "Settings"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +73,12 @@ public class Main extends Activity {
 		Fragment fragment = null;
 		switch (position) {
 			case 0:
-				fragment = new ContactsFragment();
+				fragment = new HomeFragment();
 				break;
 			case 1:
+				fragment = new ContactsFragment();
+				break;
+			case 2:
 				fragment = new NotificationsFragment();
 				break;
 		}
