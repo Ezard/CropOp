@@ -17,6 +17,7 @@
         </activity>
 
         <activity android:name=".contacts.ContactDetail"/>
+        <activity android:name=".Menu"/>
 
         <receiver android:name=".sms.SmsReceiver"
                   android:exported="true">
