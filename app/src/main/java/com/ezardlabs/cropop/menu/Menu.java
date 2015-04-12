@@ -8,6 +8,7 @@ import com.ezardlabs.cropop.R;
 import com.ezardlabs.cropop.history.History;
 import com.ezardlabs.cropop.logs.Logs;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 //TODO You need to add images to the ImageViews in R.layout.menu
@@ -17,10 +18,11 @@ import butterknife.OnClick;
 public class Menu extends Activity {
 
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu);
-    }
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.menu);
+		ButterKnife.inject(this);
+	}
 
 
 	@OnClick(R.id.smsButton)

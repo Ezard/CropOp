@@ -64,7 +64,7 @@ public class ContactsFragment extends Fragment {
 					return true;
 				}
 			});
-			temp.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+			if (VERSION.SDK_INT >= 11) temp.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		} else {
 			temp = menu.add("Show map region list").setIcon(android.R.drawable.ic_menu_mapmode).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 				@Override

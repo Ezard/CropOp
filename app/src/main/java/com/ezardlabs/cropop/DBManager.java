@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.ezardlabs.cropop.contacts.Contact;
 
@@ -142,6 +143,7 @@ public class DBManager {
 	}
 
 	public static String[][] getLogs(int contactId) {
+		Log.i("", "" + contactId);
 		Cursor c1 = db.rawQuery("SELECT type, day, month, year FROM diseases WHERE contact=?", new String[]{String.valueOf(contactId)});
 		Cursor c2 = db.rawQuery("SELECT amount, day, month, year FROM incomes WHERE contact=?", new String[]{String.valueOf(contactId)});
 		Cursor c3 = db.rawQuery("SELECT weight, type, day, month, year FROM harvests WHERE contact=?", new String[]{String.valueOf(contactId)});
@@ -162,33 +164,36 @@ public class DBManager {
 		return logs;
 	}
 
-    public static String[][] getDiseaseLogs () {
-        Cursor c1 = db.rawQuery("SELECT type, contact, day, month, year FROM diseases",null);
+	public static String[][] getDiseaseLogs() {
+		Cursor c = db.rawQuery("SELECT type, day, month, year, c.name as contact FROM diseases h LEFT JOIN contacts c ON c.id=h.contact", null);
+		String[][] logs = new String[c.getCount()][2];
+		int count = 0;
+		while(c.moveToNext()) {
+			logs[count++] = new String[]{c.getString(4), c.getString(0) + ": " + c.getInt(1) + "/" + c.getInt(2) + "/" + c.getInt(3)};
+		}
+		c.close();
+		return logs;
+	}
 
-                String[][] logs = new String[c1.getCount()][0];
-        int count = 0;
-        while (c1.moveToNext()) {
-            logs[count++] = new String[]{"Disease",
-                    c1.getString(0) + "has affected farmer " + c1.getInt(1) + " on " +
-                            c1.getInt(2) + "/" + c1.getInt(3) + "/" + c1.getInt(4)};
-        }
-        c1.close();
+	public static String[][] getIncomeLogs() {
+		Cursor c = db.rawQuery("SELECT amount, day, month, year, c.name as contact FROM incomes h LEFT JOIN contacts c ON c.id=h.contact", null);
+		String[][] logs = new String[c.getCount()][2];
+		int count = 0;
+		while(c.moveToNext()) {
+			logs[count++] = new String[]{c.getString(4), NumberFormat.getCurrencyInstance(Locale.UK).format(c.getFloat(0)) + ": " + c.getInt(1) + "/" + c.getInt(2) + "/" + c.getInt(3)};
+		}
+		c.close();
+		return logs;
+	}
 
-        return logs;
-    }
-
-    public static String[][] getIncomeLogs () {
-        Cursor c2 = db.rawQuery("SELECT contact, amount, day,month, year FROM incomes",null);
-
-                String[][] logs = new String[c2.getCount()][0];
-        int count = 0;
-        while (c2.moveToNext()) {
-            logs[count++] = new String[]{"Income", "of Farmer " +
-                    c2.getString(0) + " was " +
-                    NumberFormat.getCurrencyInstance(Locale.UK).format(c2.getFloat(1)) +
-                    "on " + c2.getInt(2) + "/" + c2.getInt(3) + "/" + c2.getInt(4)};
-        }
-        c2.close();
-        return logs;
-    }
+	public static String[][] getHarvestLogs() {
+		Cursor c = db.rawQuery("SELECT weight, type, day, month, year, c.name as contact FROM harvests h LEFT JOIN contacts c ON c.id=h.contact", null);
+		String[][] logs = new String[c.getCount()][2];
+		int count = 0;
+		while(c.moveToNext()) {
+			logs[count++] = new String[]{c.getString(5), c.getString(0) + "kg of " + c.getString(1) + ": " + c.getInt(2) + "/" + c.getInt(3) + "/" + c.getInt(4)};
+		}
+		c.close();
+		return logs;
+	}
 }

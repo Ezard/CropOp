@@ -10,26 +10,26 @@
         android:layout_height="wrap_content"
         android:text="SMS"
         android:id="@+id/smsButton"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"/>
 
     <Button
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="Alert"
         android:id="@+id/alertButton"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"/>
 
     <Button
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="History"
         android:id="@+id/historyButton"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"/>
 
     <Button
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="Logs"
         android:id="@+id/logsButton"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"/>
 </LinearLayout>

@@ -12,9 +12,6 @@ import com.ezardlabs.cropop.logs.income.Income;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by Neel on 12/04/15.
- */
 public class Logs extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
