@@ -87,17 +87,13 @@ public class DBManager {
 	}
 
 	public static void addPesticide(String phone, float quantity, int type) {
-		String id;
-		if ((id = getIdFromPhoneNumber(phone)) != null) {
-			ContentValues cv = new ContentValues();
-			cv.put("quantity", quantity);
-			cv.put("type", type);
-			cv.put("day", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-			cv.put("month", Calendar.getInstance().get(Calendar.MONTH) + 1);
-			cv.put("year", Calendar.getInstance().get(Calendar.YEAR));
-			cv.put("contact", id);
-			db.insert("pesticides", null, cv);
-		}
+		ContentValues cv = new ContentValues();
+		cv.put("quantity", quantity);
+		cv.put("type", type);
+		cv.put("day", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+		cv.put("month", Calendar.getInstance().get(Calendar.MONTH) + 1);
+		cv.put("year", Calendar.getInstance().get(Calendar.YEAR));
+		db.insert("pesticides", null, cv);
 	}
 
 	private static String standardisePhoneNumber(String phone) {
@@ -168,7 +164,7 @@ public class DBManager {
 		Cursor c = db.rawQuery("SELECT type, day, month, year, c.name as contact FROM diseases h LEFT JOIN contacts c ON c.id=h.contact", null);
 		String[][] logs = new String[c.getCount()][2];
 		int count = 0;
-		while(c.moveToNext()) {
+		while (c.moveToNext()) {
 			logs[count++] = new String[]{c.getString(4), c.getString(0) + ": " + c.getInt(1) + "/" + c.getInt(2) + "/" + c.getInt(3)};
 		}
 		c.close();
@@ -179,7 +175,7 @@ public class DBManager {
 		Cursor c = db.rawQuery("SELECT amount, day, month, year, c.name as contact FROM incomes h LEFT JOIN contacts c ON c.id=h.contact", null);
 		String[][] logs = new String[c.getCount()][2];
 		int count = 0;
-		while(c.moveToNext()) {
+		while (c.moveToNext()) {
 			logs[count++] = new String[]{c.getString(4), NumberFormat.getCurrencyInstance(Locale.UK).format(c.getFloat(0)) + ": " + c.getInt(1) + "/" + c.getInt(2) + "/" + c.getInt(3)};
 		}
 		c.close();
@@ -190,10 +186,21 @@ public class DBManager {
 		Cursor c = db.rawQuery("SELECT weight, type, day, month, year, c.name as contact FROM harvests h LEFT JOIN contacts c ON c.id=h.contact", null);
 		String[][] logs = new String[c.getCount()][2];
 		int count = 0;
-		while(c.moveToNext()) {
+		while (c.moveToNext()) {
 			logs[count++] = new String[]{c.getString(5), c.getString(0) + "kg of " + c.getString(1) + ": " + c.getInt(2) + "/" + c.getInt(3) + "/" + c.getInt(4)};
 		}
 		c.close();
 		return logs;
+	}
+
+	public static String[][] getNotifications() {
+		Cursor c = db.rawQuery("SELECT quantity, type, day, month, year FROM pesticides", null);
+		int count = 0;
+		String[][] stuff = new String[c.getCount()][2];
+		while (c.moveToNext()) {
+			stuff[count++] = new String[]{c.getString(0) + "kg of pesticide of type " + c.getString(1), c.getInt(2) + "/" + c.getInt(3) + "/" + c.getInt(4)};
+		}
+		c.close();
+		return stuff;
 	}
 }

@@ -22,7 +22,7 @@ public class SmsReceiver extends BroadcastReceiver {
 		Object[] pdus = (Object[]) pdusBundle.get("pdus");
 		SmsMessage messages = SmsMessage.createFromPdu((byte[]) pdus[0]);
 		Log.i("", messages.getMessageBody() + ", " + messages.getOriginatingAddress());
-		Pattern pattern = Pattern.compile("(?:(DIS) ((?:A[1-3])|UNKNOWN))|(?:(INC) ([0-9]+(?:\\.[0-9]+)?))|(?:(HRV)\\s(([0-9]+(?:\\.[0-9]+)?C[1-3]\\s?)+))");
+		Pattern pattern = Pattern.compile("(?:(DIS) ((?:A[1-3])|UNKNOWN))|(?:(INC) ([0-9]+(?:\\.[0-9]+)?))|(?:(HRV)\\s(([0-9]+(?:\\.[0-9]+)?C[1-3]\\s?)+))|(?:(PST) ([0-9]+(?:\\.[0-9]+) P[1-3]))");
 		Matcher m = pattern.matcher(messages.getMessageBody());
 		while (m.find()) {
 			outer:
@@ -47,13 +47,11 @@ public class SmsReceiver extends BroadcastReceiver {
 								DBManager.addHarvest(messages.getOriginatingAddress(), Float.parseFloat(split2[0]) * 1000f, Integer.parseInt(split2[1]));
 							}
 							break outer;
-                        case "PST":
-                            Log.i("", "Pesticide used:" + Float.parseFloat(m.group(i+1)));
-                            String[] split4 = m.group(i+1).split(" ");
-                            for (String s:split4) {
-                                String[] split5 = s.split("P");
-                                DBManager.addPesticide(messages.getOriginatingAddress(), Float.parseFloat(split5[0]), Integer.parseInt(split4[1]));
-                            }
+						case "PST":
+							String[] split4 = m.group(i + 1).split(" ");
+							Log.i("", "Pesticide used: " + Float.parseFloat(split4[0]) + " of type " + split4[1]);
+							DBManager.addPesticide(messages.getOriginatingAddress(), Float.parseFloat(split4[0]) * 1000f, Integer.parseInt("" + split4[1].charAt(1)));
+							createNotification(context, "Government notification about pesticide");
 					}
 				}
 				Log.i("", "m.group(" + i + "): " + m.group(i));

@@ -2,33 +2,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@drawable/backpic">
 
     <Button
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="SMS"
         android:id="@+id/smsButton"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="#60000000"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:layout_marginTop="15dp"/>
 
     <Button
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="Alert"
         android:id="@+id/alertButton"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="#60000000"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:layout_marginTop="15dp"/>
 
     <Button
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="History"
         android:id="@+id/historyButton"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="#60000000"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:layout_marginTop="15dp"/>
 
     <Button
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="Logs"
         android:id="@+id/logsButton"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="#60000000"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:layout_marginTop="15dp"/>
 </LinearLayout>

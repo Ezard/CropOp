@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.ezardlabs.cropop.DBManager;
 import com.ezardlabs.cropop.R;
-import com.ezardlabs.cropop.contacts.Contact;
 
 public class NotificationsFragment extends Fragment {
 	RecyclerView list;
@@ -36,7 +35,7 @@ public class NotificationsFragment extends Fragment {
 		View v = inflater.inflate(R.layout.list, container, false);
 		list = (RecyclerView) v.findViewById(R.id.list);
 		list.setLayoutManager(new LinearLayoutManager(getActivity()));
-		list.setAdapter(new ContactAdapter(DBManager.getContacts()));
+		list.setAdapter(new NotificationsAdapter(DBManager.getNotifications()));
 		return v;
 	}
 
@@ -57,37 +56,37 @@ public class NotificationsFragment extends Fragment {
 		if (VERSION.SDK_INT >= 11) temp.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	}
 
-	public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
-		private Contact[] contacts;
+	class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.ViewHolder> {
+		private String[][] data;
 
-		public ContactAdapter(Contact[] contacts) {
-			this.contacts = contacts;
+		public NotificationsAdapter(String[][] data) {
+			this.data = data;
 		}
 
 		@Override
-		public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-			return new ViewHolder(getActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_2, viewGroup, false));
+		public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+			return new ViewHolder(getActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_2, parent, false));
 		}
 
 		@Override
-		public void onBindViewHolder(ViewHolder viewHolder, int i) {
-			viewHolder.name.setText(contacts[i].getName());
-			viewHolder.location.setText(contacts[i].getLocation());
+		public void onBindViewHolder(ViewHolder holder, int position) {
+			holder.title.setText(data[position][0]);
+			holder.message.setText(data[position][1]);
 		}
 
 		@Override
 		public int getItemCount() {
-			return contacts.length;
+			return data.length;
 		}
 
-		public class ViewHolder extends RecyclerView.ViewHolder {
-			TextView name;
-			TextView location;
+		class ViewHolder extends RecyclerView.ViewHolder {
+			TextView title;
+			TextView message;
 
 			public ViewHolder(View itemView) {
 				super(itemView);
-				name = (TextView) itemView.findViewById(android.R.id.text1);
-				location = (TextView) itemView.findViewById(android.R.id.text2);
+				title = (TextView) itemView.findViewById(android.R.id.text1);
+				message = (TextView) itemView.findViewById(android.R.id.text2);
 			}
 		}
 	}
