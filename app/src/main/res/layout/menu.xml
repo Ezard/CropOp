@@ -5,35 +5,31 @@
               android:layout_height="match_parent"
               android:background="#000000">
 
-    <ImageView
-        android:id="@+id/image1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:contentDescription="@string/image"
-        android:src="@drawable/sms"/>
+    <Button
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="SMS"
+        android:id="@+id/smsButton"
+        android:layout_gravity="center_horizontal" />
 
-    <ImageView
-        android:id="@+id/image2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:contentDescription="@string/image"
-        android:src="@drawable/alert"/>
+    <Button
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="Alert"
+        android:id="@+id/alertButton"
+        android:layout_gravity="center_horizontal" />
 
-    <ImageView
-        android:id="@+id/image3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:contentDescription="@string/image"
-        android:src="@drawable/history"/>
+    <Button
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:id="@+id/historyButton"
+        android:layout_gravity="center_horizontal" />
 
-    <ImageView
-        android:id="@+id/image4"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:contentDescription="@string/image"
-        android:src="@drawable/log"/>
+    <Button
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="Logs"
+        android:id="@+id/logsButton"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

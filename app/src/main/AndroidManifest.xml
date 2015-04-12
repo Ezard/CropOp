@@ -18,8 +18,10 @@
 
         <activity android:name=".Main"/>
         <activity android:name=".contacts.ContactDetail"/>
+        <activity android:name=".history.History"/>
         <activity android:name=".logs.Logs"/>
         <activity android:name=".logs.harvest.Harvest"/>
+        <activity android:name=".menu.Menu"/>
 
         <receiver android:name=".sms.SmsReceiver"
                   android:exported="true">

@@ -50,7 +50,7 @@
             android:text="Log in"
             android:textColor="#FFFBFBFB"
             android:layout_below="@+id/TFpassword"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
 </RelativeLayout>
