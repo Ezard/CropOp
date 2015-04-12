@@ -14,4 +14,5 @@ public class History extends Activity {
         setContentView(R.layout.history);
         ButterKnife.inject(this);
     }
+
 }
