@@ -161,4 +161,34 @@ public class DBManager {
 		c3.close();
 		return logs;
 	}
+
+    public static String[][] getDiseaseLogs () {
+        Cursor c1 = db.rawQuery("SELECT type, contact, day, month, year FROM diseases",null);
+
+                String[][] logs = new String[c1.getCount()][0];
+        int count = 0;
+        while (c1.moveToNext()) {
+            logs[count++] = new String[]{"Disease",
+                    c1.getString(0) + "has affected farmer " + c1.getInt(1) + " on " +
+                            c1.getInt(2) + "/" + c1.getInt(3) + "/" + c1.getInt(4)};
+        }
+        c1.close();
+
+        return logs;
+    }
+
+    public static String[][] getIncomeLogs () {
+        Cursor c2 = db.rawQuery("SELECT contact, amount, day,month, year FROM incomes",null);
+
+                String[][] logs = new String[c2.getCount()][0];
+        int count = 0;
+        while (c2.moveToNext()) {
+            logs[count++] = new String[]{"Income", "of Farmer " +
+                    c2.getString(0) + " was " +
+                    NumberFormat.getCurrencyInstance(Locale.UK).format(c2.getFloat(1)) +
+                    "on " + c2.getInt(2) + "/" + c2.getInt(3) + "/" + c2.getInt(4)};
+        }
+        c2.close();
+        return logs;
+    }
 }
