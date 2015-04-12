@@ -16,6 +16,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".contacts.ContactDetail"/>
+
         <receiver android:name=".sms.SmsReceiver"
                   android:exported="true">
             <intent-filter android:priority="-1">

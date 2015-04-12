@@ -1,9 +1,11 @@
-package com.ezardlabs.cropop;
+package com.ezardlabs.cropop.login;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.ezardlabs.cropop.contacts.Contacts;
+import com.ezardlabs.cropop.Activity;
+import com.ezardlabs.cropop.Main;
+import com.ezardlabs.cropop.R;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.ezardlabs.cropop.contacts.Contact;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class DBManager {
 	private static SQLiteDatabase db;
@@ -140,19 +142,19 @@ public class DBManager {
 	}
 
 	public static String[][] getLogs(int contactId) {
-		Cursor c1 = db.rawQuery("SELECT type, day, month, year FROM diseases WHERE contact=" + contactId, null);
-		Cursor c2 = db.rawQuery("SELECT type, day, month, year FROM incomes WHERE contact=" + contactId, null);
-		Cursor c3 = db.rawQuery("SELECT type, day, month, year FROM harvests WHERE contact=" + contactId, null);
+		Cursor c1 = db.rawQuery("SELECT type, day, month, year FROM diseases WHERE contact=?", new String[]{String.valueOf(contactId)});
+		Cursor c2 = db.rawQuery("SELECT amount, day, month, year FROM incomes WHERE contact=?", new String[]{String.valueOf(contactId)});
+		Cursor c3 = db.rawQuery("SELECT weight, type, day, month, year FROM harvests WHERE contact=?", new String[]{String.valueOf(contactId)});
 		String[][] logs = new String[c1.getCount() + c2.getCount() + c3.getCount()][2];
 		int count = 0;
 		while (c1.moveToNext()) {
 			logs[count++] = new String[]{"Disease", c1.getString(0) + ": " + c1.getInt(1) + "/" + c1.getInt(2) + "/" + c1.getInt(3)};
 		}
 		while (c2.moveToNext()) {
-			logs[count++] = new String[]{"Income", c1.getString(0) + ": " + c1.getInt(1) + "/" + c1.getInt(2) + "/" + c1.getInt(3)};
+			logs[count++] = new String[]{"Income", NumberFormat.getCurrencyInstance(Locale.UK).format(c2.getFloat(0)) + ": " + c2.getInt(1) + "/" + c2.getInt(2) + "/" + c2.getInt(3)};
 		}
 		while (c3.moveToNext()) {
-			logs[count++] = new String[]{"Harvest", c1.getString(0) + ": " + c1.getInt(1) + "/" + c1.getInt(2) + "/" + c1.getInt(3)};
+			logs[count++] = new String[]{"Harvest", c3.getString(0) + "kg of " + c3.getString(1) + ": " + c3.getInt(2) + "/" + c3.getInt(3) + "/" + c3.getInt(4)};
 		}
 		c1.close();
 		c2.close();
