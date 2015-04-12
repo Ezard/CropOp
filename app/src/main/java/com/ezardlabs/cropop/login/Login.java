@@ -2,6 +2,7 @@ package com.ezardlabs.cropop.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.ezardlabs.cropop.Activity;
 import com.ezardlabs.cropop.Main;
@@ -24,10 +25,11 @@ public class Login extends Activity {
 
     /*public void onButtonClick(View v){
         if(v.getId() == R.id.loginButton){
-            Intent i = new Intent(login.this, Login.class);
+            Intent i = new Intent(login.this, Menu.class);
         }
     }
     */
+
 
     @OnClick(R.id.loginButton)
     void loginClick() {
