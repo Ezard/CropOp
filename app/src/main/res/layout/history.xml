@@ -1,40 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rainfall"
+            android:id="@+id/rainfallTb" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diseases"
+            android:id="@+id/diseaseTb" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Harvest"
+            android:id="@+id/harvestTb" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Income"
+            android:id="@+id/incomeTb" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.15">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2009"
+            android:id="@+id/radio09"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2010"
+            android:id="@+id/radio10"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2011"
+            android:id="@+id/radio11"
+            android:checked="true" />
+    </LinearLayout>
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rainfall"
-        android:id="@+id/rainfallTb"
-        android:layout_row="0"
-        android:layout_column="0" />
+        android:id="@+id/imageView09"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ig09" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Diseases"
-        android:id="@+id/diseaseTb"
-        android:layout_row="0"
-        android:layout_column="1" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Harvest"
-        android:id="@+id/harvestTb"
-        android:layout_row="0"
-        android:layout_column="2" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Income"
-        android:id="@+id/incomeTb"
-        android:layout_row="0"
-        android:layout_column="3" />
-</GridLayout>
+</LinearLayout>
