@@ -81,7 +81,7 @@ public class ContactsFragment extends Fragment {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				final View view = getActivity().getLayoutInflater().inflate(R.layout.contacts_add, null);
-				new AlertDialog.Builder(getActivity()).setTitle("Add peasant to collection").setView(view).setPositiveButton("Add", new OnClickListener() {
+				new AlertDialog.Builder(getActivity()).setTitle("Add farmers to collection").setView(view).setPositiveButton("Add", new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						new LocationFinder(((EditText) view.findViewById(R.id.name)).getText().toString(), ((EditText) view.findViewById(R.id.number)).getText().toString(),
