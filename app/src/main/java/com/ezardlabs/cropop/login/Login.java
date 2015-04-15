@@ -19,15 +19,6 @@ public class Login extends Activity {
         ButterKnife.inject(this);
     }
 
-
-    /*public void onButtonClick(View v){
-        if(v.getId() == R.id.loginButton){
-            Intent i = new Intent(login.this, Menu.class);
-        }
-    }
-    */
-
-
     @OnClick(R.id.loginButton)
     void loginClick() {
         startActivity(new Intent(this, Main.class));

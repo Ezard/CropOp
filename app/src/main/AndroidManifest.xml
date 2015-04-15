@@ -24,6 +24,7 @@
         <activity android:name=".logs.disease.Disease"/>
         <activity android:name=".logs.income.Income"/>
         <activity android:name=".menu.Menu"/>
+        <activity android:name=".sms_page.SmsPage"/>
 
         <receiver android:name=".sms.SmsReceiver"
                   android:exported="true">
