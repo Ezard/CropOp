@@ -77,7 +77,7 @@ public class ContactsFragment extends Fragment {
 			});
 			if (VERSION.SDK_INT >= 11) temp.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		}
-		temp = menu.add("Add peasant to collection").setIcon(android.R.drawable.ic_menu_add).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+		temp = menu.add("Add farmers to collection").setIcon(android.R.drawable.ic_menu_add).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				final View view = getActivity().getLayoutInflater().inflate(R.layout.contacts_add, null);
