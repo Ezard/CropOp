@@ -180,7 +180,7 @@ public class ContactsFragment extends Fragment {
 		private ProgressDialog pd;
 
 		public LocationFinder(String name, String phone, String location) {
-			this.name = names;
+			this.name = name;
 			this.phone = phone;
 			this.location = location;
 		}
